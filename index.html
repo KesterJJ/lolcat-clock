@@ -1,231 +1,235 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Lolcat Clock</title>
+  <title>Lolcat Clock</title>
 
   <link href="https://fonts.googleapis.com/css?family=Bungee|Bungee+Shade|Covered+By+Your+Grace" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:800" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body onload="buttonWriting()">
-<header>
-<h1>LOLCAT CLOCK</h1>
-</header>
-<h4>I CAN HAZ TIME??</h4>
-<h3 id="time"></h3>
-<img id="image" src="img/regular-cats.jpg" alt="regular cats">
-<br>
-<p>SET WAKE UP TIME </p>
-<select id="wakeUpSelector" onchange="rise()">
-</select>
-<br>
-<p>SET LUNCH TIME </p><select id="lunchTimeSelector" onchange="eat()"></select>
-<br>
-<p>SET NAP TIME </p><select id="napTimeSelector" onchange="sleep()"></select>
-<br>
-<br>
-<button id="button" onclick="party()"></button>
+  <div>
+    <header>
+      <h1>LOLCAT CLOCK</h1>
+    </header>
+    <h4>I CAN HAZ TIME??</h4>
+    <h3 id="time"></h3>
+    <img id="image" src="img/regular-cats.jpg" alt="regular cats">
+    <br>
+    <p>SET WAKE UP TIME </p>
+    <select id="wakeUpSelector" onchange="rise()">
+    </select>
+    <br>
+    <p>SET LUNCH TIME </p><select id="lunchTimeSelector" onchange="eat()"></select>
+    <br>
+    <p>SET NAP TIME </p><select id="napTimeSelector" onchange="sleep()"></select>
+    <br>
+    <br>
+    <button id="button" onclick="party()"></button>
+  </div>
+  <script>
 
-<script>
+    var time = document.getElementById("time");
+    var image = document.getElementById("image");
+    var btn = document.getElementById("button");
 
-var time = document.getElementById("time");
-var image = document.getElementById("image");
-var btn = document.getElementById("button");
+    function buttonWriting() {
+      btn.innerHTML = "PARTY TIME!";
+    }
 
-function buttonWriting() {
-btn.innerHTML = "PARTY TIME!";
-}
+    var d = new Date();
+    var hours = d.getHours();
 
-var d = new Date();
-var hours = d.getHours();
+    setInterval(updateTime, 10);
 
-setInterval(updateTime, 10);
+    function updateTime() {
+      d = new Date();
+      time.innerHTML = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " PM";
+      hours = parseInt(d.getHours(), 10);
+    }
 
-function updateTime() {
-d = new Date();
-time.innerHTML = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " PM";
-hours = parseInt(d.getHours(), 10);
-}
+    var regular = true;
 
-var regular = true;
+    function party() {
+      image.src = "img/party-time.jfif";
+      image.alt = "Party cats";
+      btn.innerHTML = "PARTY OVER!";
+      btn.setAttribute("onclick", "partyOver()");
+      btn.style.backgroundColor = "blue";
+      regular = false;
+    }
 
-function party() {
-image.src = "img/party-time.jfif";
-image.alt = "Party cats";
-btn.innerHTML = "PARTY OVER!";
-btn.setAttribute("onclick", "partyOver()");
-btn.style.backgroundColor = "blue";
-regular = false;
-}
+    function partyOver() {
+      image.src = "img/regular-cats.jpg";
+      image.alt = "Regular cats";
+      btn.setAttribute("onclick", "party()");
+      btn.innerHTML = "PARTY TIME!";
+      btn.style.backgroundColor = "black";
+      regular = true;
+    }
 
-function partyOver() {
-image.src = "img/regular-cats.jpg";
-image.alt = "Regular cats";
-btn.setAttribute("onclick", "party()");
-btn.innerHTML = "PARTY TIME!";
-btn.style.backgroundColor = "black";
-regular = true;
-}
+    var wakeUp = document.getElementById("wakeUpSelector");
+    var lunch = document.getElementById("lunchTimeSelector");
+    var nap = document.getElementById("napTimeSelector");
 
-var wakeUp = document.getElementById("wakeUpSelector");
-var lunch = document.getElementById("lunchTimeSelector");
-var nap = document.getElementById("napTimeSelector");
+    var i = 0;
 
-var i = 0;
+    var array = ["12AM-1AM", "1AM-2AM", "2AM-3AM", "3AM-4AM", "4AM-5AM", "5AM-6AM", "6AM-7AM", "7AM-8AM", "8AM-9AM", "9AM-10AM", "10AM-11AM", "11AM-12PM", "12PM-1PM", "1PM-2PM", "2PM-3PM", "3PM-4PM", "4PM-5PM", "5PM-6PM", "6PM-7PM", "7PM-8PM", "8PM-9PM", "9PM-10PM", "10PM-11PM", "11PM-12AM"];
 
-var array = ["12AM-1AM", "1AM-2AM", "2AM-3AM", "3AM-4AM", "4AM-5AM", "5AM-6AM", "6AM-7AM", "7AM-8AM", "8AM-9AM", "9AM-10AM", "10AM-11AM", "11AM-12PM", "12PM-1PM", "1PM-2PM", "2PM-3PM", "3PM-4PM", "4PM-5PM", "5PM-6PM", "6PM-7PM", "7PM-8PM", "8PM-9PM", "9PM-10PM", "10PM-11PM", "11PM-12AM"];
+    for (i = 0; i < array.length; i++) {
+      var optn = document.createElement("option");
+      optn.value = i;
+      optn.innerHTML = array[i];
+      var optn2 = document.createElement("option");
+      optn2.value = i;
+      optn2.innerHTML = array[i];
+      var optn3 = document.createElement("option");
+      optn3.value = i;
+      optn3.innerHTML = array[i];
+      wakeUp.appendChild(optn);
+      lunch.appendChild(optn2);
+      nap.appendChild(optn3);
+    }
 
-for (i=0; i < array.length; i++) {
-var optn = document.createElement("option");
-optn.value = i;
-optn.innerHTML = array[i];
-var optn2 = document.createElement("option");
-optn2.value = i;
-optn2.innerHTML = array[i];
-var optn3 = document.createElement("option");
-optn3.value = i;
-optn3.innerHTML = array[i];
-wakeUp.appendChild(optn);
-lunch.appendChild(optn2);
-nap.appendChild(optn3);
-}
+    function rise() {
+      if (regular === false) {
+      } else {
+        awaken();
+      }
+    }
 
-function rise() {
-if (regular === false) {
-} else {
-awaken();
-}
-}
+    function eat() {
+      if (regular === false) {
+      } else {
+        munch();
+      }
+    }
 
-function eat() {
-if (regular === false) {
-} else {
-munch();
-}
-}
+    function sleep() {
+      if (regular === false) {
+      } else {
+        konk();
+      }
+    }
 
-function sleep() {
-if (regular === false) {
-} else {
-konk();
-}
-}
+    function backToNormal() {
+      if (!regular) {
+        image.src = "img/party-time.jfif";
+      } else if (regular === "set") {
+      } else if (regular === "afternoon") {
+        image.src = "img/good-afternoon.png";
+      } else if (regular === "evening") {
+        image.src = "img/evening-cat.jpg";
+      } else if (regular === "night") {
+        image.src = "img/night-cat.jpg";
+      } else if (regular === "morning") {
+        image.src = "img/morning-cat.jpg"
+      } else if (regular) {
+        image.src = "img/regular-cats.jpg"
+      }
+    }
 
-function backToNormal () {
-if (!regular) {
-image.src = "img/party-time.jfif";
-} else if (regular === "set") {
-} else if (regular === "afternoon") {
-image.src = "img/good-afternoon.png";
-} else if (regular === "evening") {
-image.src = "img/evening-cat.jpg";
-} else if (regular === "night") {
-image.src = "img/night-cat.jpg";
-} else if (regular === "morning") {
-image.src = "img/morning-cat.jpg"
-} else if (regular) {
-image.src = "img/regular-cats.jpg"
-}
-}
+    function checkIfMorning() {
+      if (hours < 12) {
+        regular = "morning";
+      } else if (14 < hours) {
+        checkIfAfternoon();
+      } else {
+        regular = true;
+      }
+    }
 
-function checkIfMorning() {
-if (hours < 12) {
-regular = "morning";
-} else if (14 < hours) {
-checkIfAfternoon();
-} else {
-regular = true;
-}
-}
+    function checkIfAfternoon() {
+      if (hours < 17) {
+        regular = "afternoon";
+      } else if (18 < hours) {
+        checkIfEvening();
+      } else {
+        regular = true;
+      }
+    }
 
-function checkIfAfternoon() {
-if (hours < 17) {
-regular = "afternoon";
-} else if (18 < hours) {
-checkIfEvening();
-} else {
-regular = true;
-}
-}
+    function checkIfEvening() {
+      if (hours < 21) {
+        regular = "evening";
+      } else if (22 < hours) {
+        checkIfNight();
+      } else {
+        regular = true;
+      }
+    }
 
-function checkIfEvening() {
-if (hours < 21) {
-regular = "evening";
-} else if (22 < hours) {
-checkIfNight();
-} else {
-regular = true;
-}
-}
+    function makeNight() {
+      regular = "night";
+    }
 
-function makeNight() {
-regular = "night";
-}
+    function checkUpdate() {
+      if (regular === "set") {
+      } else if (hours < 5) {
+        makeNight();
+      } else if (7 < hours) {
+        checkIfMorning();
+      } else {
+        regular = true;
+      }
+      backToNormal();
+    }
 
-function checkUpdate() {
-if (regular === "set") {
-} else if (hours < 5) {
-makeNight();
-} else if (7 < hours) {
-checkIfMorning();
-} else {
-regular = true;
-}
-backToNormal();
-}
+    function konk() {
+      var selectedNap = nap.options[nap.selectedIndex];
+      var stringValueNap = selectedNap.value;
+      var numberNap = parseInt(stringValueNap, 10);
+      if (numberNap === hours) {
+        image.src = "img/nap-cat.jpg";
+        return true;
+      }
+    }
 
-function konk() {
-var selectedNap = nap.options[nap.selectedIndex];
-var stringValueNap = selectedNap.value;
-var numberNap = parseInt(stringValueNap, 10);
-if (numberNap === hours) {
-image.src = "img/nap-cat.jpg";
-return true;
-}
-}
+    function munch() {
+      var selectedLunch = lunch.options[lunch.selectedIndex];
+      var stringValueLunch = selectedLunch.value;
+      var numberLunch = parseInt(stringValueLunch, 10);
+      if (numberLunch === hours) {
+        image.src = "img/lunch-cat.jpg";
+        return true;
+      }
+    }
 
-function munch() {
-var selectedLunch = lunch.options[lunch.selectedIndex];
-var stringValueLunch = selectedLunch.value;
-var numberLunch = parseInt(stringValueLunch, 10);
-if (numberLunch === hours) {
-image.src = "img/lunch-cat.jpg";
-return true;
-}
-}
+    function awaken() {
+      var selected = wakeUp.options[wakeUp.selectedIndex];
+      var stringValue = selected.value;
+      var number = parseInt(stringValue, 10);
+      if (number === hours) {
+        image.src = "img/wakeUpCat.jpg";
+        return true;
+      }
+    }
 
-function awaken() {
-var selected = wakeUp.options[wakeUp.selectedIndex];
-var stringValue = selected.value;
-var number = parseInt(stringValue, 10);
-if (number === hours) {
-image.src = "img/wakeUpCat.jpg";
-return true;
-}
-}
+    function updateWithTime() {
+      if (awaken() === true) {
+        regular = "set";
+      } else if (munch() === true) {
+        regular = "set";
+      } else if (konk() === true) {
+        regular = "set";
+      } else {
+        regular = true;
+      }
+      checkUpdate();
+    }
 
-function updateWithTime() {
-if (awaken() === true) {
-regular = "set";
-} else if (munch() === true) {
-regular = "set";
-} else if (konk() === true) {
-regular = "set";
-} else {
-regular = true;
-} 
-checkUpdate();
-}
+    function checkParty() {
+      if (regular === false) {
+      } else {
+        updateWithTime();
+      }
+    }
 
-function checkParty() {
-if (regular === false) {
-} else {
-updateWithTime();
-}
-}
-
-setInterval(checkParty, 100);
-</script>
+    setInterval(checkParty, 100);
+  </script>
 </body>
+
 </html>
